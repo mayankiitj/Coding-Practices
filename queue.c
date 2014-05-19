@@ -195,14 +195,14 @@ q=head->next;
 head=head->next;
 while(q->next!=NULL&&p->next!=NULL){
 temp=q->next;
-
 q->next=p;
 p->next=temp;
 
 temp=p;
 p=p->next;
+if(p->next!=NULL){
 q=p->next;
-temp->next=q;
+temp->next=q;}
 }
 if(p->next!=NULL){
 q->next=p;
@@ -228,7 +228,7 @@ push1(6);
 //head->next->next->next->next->next=head->next;
 //circle(head);
 pairswap(head);
-int a=length(rear);
+//int a=length(rear);
 //print(rear);
 //sortqueue(a);
 //print(rear1);
