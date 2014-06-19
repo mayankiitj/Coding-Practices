@@ -189,49 +189,136 @@ void circle(node *p){
 } 
 
 void pairswap(node *head){
-node *p,*q,*temp,*k;
-p=head;
-q=head->next;
-head=head->next;
-while(q->next!=NULL&&p->next!=NULL){
-temp=q->next;
-q->next=p;
-p->next=temp;
+   node *p,*q,*temp,*k;
+   p=head;
+   q=head->next;
+   head=head->next;
+   while(q->next!=NULL&&p->next!=NULL){
+     temp=q->next;
+     q->next=p;
+     p->next=temp;
 
-temp=p;
-p=p->next;
-if(p->next!=NULL){
-q=p->next;
-temp->next=q;}
+     temp=p;
+     p=p->next;
+     if(p->next!=NULL){
+           q=p->next;
+           temp->next=q;}
+   }
+  if(p->next!=NULL){
+     q->next=p;
+     p->next=NULL;}
+
+  print(head);
 }
-if(p->next!=NULL){
+
+int addlist(node *p,node *q,int k){
+   int carry=0;
+
+   if(k>0&&p->next!=NULL&&q->next!=NULL)
+    carry=addlist(p->next,q,k-1);
+  else if(p->next!=NULL&&q->next!=NULL&&k<=0){
+    carry=addlist(p->next,q->next,k-1);
+  }
+  if(k<=0){
+   printf("%d",(p->data+q->data+carry)%10);
+   return (p->data+q->data+carry)/10;}
+  else{
+   printf("%d",(p->data+carry)%10);
+   return (p->data+carry)/10;}
+
+}
+node* reverse(node *head)
+{
+  node *p,*q,*r,*temp;
+  int c=0;
+  p=NULL;
+  q=head;
+  r=head->next;
+  while(r!=NULL&&q->next!=NULL){
+    temp=p;
+    p=q;
+    if(p==NULL){
+         p->next=NULL;
+               }
+    else
+         p->next=temp;
+
+    q=r;
+   if(r->next!=NULL)
+   {
+       r=r->next;
+   }
+
+
+  }
+  q->next=p;
+  return q;
+}
+
+node *getmid(node *head,int a){
+node *p=head;
+while(a>1){
+p=p->next;
+a--;
+}
+
+return p;
+}
+
+node *alternate(node *p,node *q){
+node *head,*tail,*ret=q;
+while(q->next!=NULL){
+head=q->next;
+tail=p;
+q->next=p;
+p=p->next;
+tail->next=head;
+q=head;
+}
+if(p!=ret){
 q->next=p;
 p->next=NULL;}
-
-print(head);
+return ret;
 }
+int main(){
+    node *head,*p,*mid;
+    int i,j,a;
 
- int main(){
-    node *head,*p;
-push(7);
-push(9);
-push(5);
-push(3);
-push(4);
-push(6);
-push1(9);
-push1(8);
-push1(3);
-push1(4);
-push1(6);
- head= createlist();
-//head->next->next->next->next->next=head->next;
-//circle(head);
-pairswap(head);
-//int a=length(rear);
-//print(rear);
-//sortqueue(a);
-//print(rear1);
-//intersectqueue();
+	push(7);
+	push(9);
+	push(5);
+	push(3);
+	push(4);
+
+	push1(8);
+	push1(3);
+	push1(4);
+	push1(6);
+	i=length(rear);
+	j=length(rear1); 
+	//if(i-j>=0)
+	//a=addlist(rear,rear1,i-j);
+	//else
+	//a=addlist(rear1,rear,j-i);
+	//if(a>0)
+	//printf("%d",a);
+	head= createlist();
+	i=length(head);
+	p=getmid(head,i/2);
+	mid=p->next;
+	mid=reverse(mid);
+	p->next = mid;
+	print(head);
+	head=alternate(head,mid);
+	print(head);
+	//head->next->next->next->next->next=head->next;
+	//circle(head);
+	//pairswap(head);
+	//int a=length(rear);
+	//print(rear);
+	//sortqueue(a);
+	//print(rear1);
+	//intersectqueue();
 
              }
+
