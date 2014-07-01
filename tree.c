@@ -55,11 +55,17 @@ struct node* newNode(int data)
  
   return(node);
 }
-void inorder(struct node *root)
+int kbc=0;
+print(int k,int *a)
 {
-     if(root!=NULL){inorder(root->left);
-     printf("%d\n",root->data);
-     inorder(root->right);
+a[kbc]=k;
+kbc++;
+}
+void inorder(struct node *root,int *a)
+{
+     if(root!=NULL){inorder(root->left,a);
+      print(root->data,a);
+     inorder(root->right,a);
 
 }}
 int height(struct node* node)
@@ -141,7 +147,9 @@ int righttree(struct node *root,int ht,int k){
    else{
      //printf("k=%d ht=%d ",k,ht);
      if(k<ht)
-     printf("%d ",root->data);
+     printf("%d \n",root->data);
+     //for printing depth of each node
+     printf("%d %d \n",root->data,ht);
      k=righttree(root->right,ht+1,k);
      k=righttree(root->left,ht+1,k);
     if(k<ht)
@@ -150,7 +158,23 @@ int righttree(struct node *root,int ht,int k){
    return k;
      }
 
-     }    
+     } 
+void comman(int *p,int *q){
+int k=0,j=0;
+while(k<6&&j<5){
+if(p[k]==q[j]){
+printf("%d ",p[k]);
+k++;
+j++;}
+else if(p[k]>q[j])
+j++;
+else
+k++;
+}
+
+}
+ 
+int a[6],b[6];  
 int main()
 { int k;
   struct node *root = newNode(4);
@@ -159,12 +183,20 @@ int main()
   root->left->left  = newNode(1);
   root->right->right= newNode(6);
   root->left->right = newNode(3);
+struct node *root1 = newNode(5);
+  root1->left        = newNode(2);
+  root1->right       = newNode(6);
+  root1->left->left  = newNode(1);
+  root1->right->right= newNode(9);
+ 
   printf("Level Order traversal of binary tree is \n");
   //printLevelOrder(root);
-  bfs(root);
+ // bfs(root);
   k=righttree(root,1,0);
-  printf("\n");
-  inorder(root);
-
+  //printf("\n");
+  inorder(root,a);
+  kbc=0;
+  inorder(root1,b);
+  comman(a,b);
   return 0;
 }

@@ -280,6 +280,15 @@ q->next=p;
 p->next=NULL;}
 return ret;
 }
+node *subtract(node *p,node* q){
+   if(p==NULL)
+      return q;
+   else
+     q= subtract(p->next,q);
+   if(length(p)<=length(q))
+   q->data= p->data-q->data ;
+   return q->next;
+}
 int main(){
     node *head,*p,*mid;
     int i,j,a;
@@ -304,12 +313,13 @@ int main(){
 	//printf("%d",a);
 	head= createlist();
 	i=length(head);
-	p=getmid(head,i/2);
-	mid=p->next;
-	mid=reverse(mid);
-	p->next = mid;
-	print(head);
-	head=alternate(head,mid);
+	//p=getmid(head,i/2);
+	//mid=p->next;
+	//mid=reverse(mid);
+	//p->next = mid;
+	//print(head);
+	//head=alternate(head,mid);
+	p=subtract(head,head);
 	print(head);
 	//head->next->next->next->next->next=head->next;
 	//circle(head);
